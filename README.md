@@ -2,8 +2,8 @@
 Requirement :
 1. Padrino Web Framework (Include Sinatra Ruby Web Framework) v.0.14.4 s
 2. Ruby 2.7.1
-3. Bundler version 1.17.3
-Instalation :
+3. Bundler version 1.17.3<br/>
+Instalation :<br/>
 1. cd [....your projects....]
 2. Bundle Install
 3. Check Config Database at /config/database.rb , set as Your Configuration Database Access
