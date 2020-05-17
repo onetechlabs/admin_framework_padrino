@@ -1,0 +1,419 @@
+%script{:src => "/templates/plugins/3d-bold-navigation/js/modernizr.js"}
+/ HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+/ WARNING: Respond.js doesn't work if you view the page via file://
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+=javascript_include_tag 'jquery-1.11.0.min', :application
+%script{:src => "/templates/plugins/jquery-ui/jquery-ui.min.js"}
+%script{:src => "/templates/plugins/pace-master/pace.min.js"}
+%script{:src => "/templates/plugins/jquery-blockui/jquery.blockui.js"}
+%script{:src => "/templates/plugins/bootstrap/js/bootstrap.js"}
+%script{:src => "/templates/plugins/jquery-slimscroll/jquery.slimscroll.min.js"}
+%script{:src => "/templates/plugins/switchery/switchery.min.js"}
+%script{:src => "/templates/plugins/uniform/jquery.uniform.min.js"}
+%script{:src => "/templates/plugins/classie/classie.js"}
+%script{:src => "/templates/plugins/waves/waves.min.js"}
+%script{:src => "/templates/plugins/3d-bold-navigation/js/main.js"}
+%script{:src => "/templates/plugins/waypoints/jquery.waypoints.min.js"}
+%script{:src => "/templates/plugins/jquery-counterup/jquery.counterup.min.js"}
+%script{:src => "/templates/plugins/toastr/toastr.min.js"}
+%script{:src => "/templates/plugins/flot/jquery.flot.min.js"}
+%script{:src => "/templates/plugins/flot/jquery.flot.time.min.js"}
+%script{:src => "/templates/plugins/flot/jquery.flot.symbol.min.js"}
+%script{:src => "/templates/plugins/flot/jquery.flot.resize.min.js"}
+%script{:src => "/templates/plugins/flot/jquery.flot.tooltip.min.js"}
+%script{:src => "/templates/plugins/curvedlines/curvedLines.js"}
+%script{:src => "/templates/plugins/metrojs/MetroJs.min.js"}
+%script{:src => "/templates/js/modern.js"}
+%script{:src => "/templates/js/pages/dashboard.js"}
+
+:javascript
+  setTimeout(function() {
+      toastr.options = {
+          closeButton: true,
+          progressBar: true,
+          showMethod: 'fadeIn',
+          hideMethod: 'fadeOut',
+          timeOut: 5000
+      };
+      toastr.success('Hello, #{current_account.name+" "+current_account.surname} sign in using #{current_account.email} as #{current_account.role}!', 'Welcome to #{$application_name}!');
+  }, 1800);
+
+%main.page-content.content-wrap
+  = render 'layouts/partial/_header'
+  .page-inner
+    .page-breadcrumb
+      %ol.breadcrumb.container
+        %li="Administrator Page"
+        %li.active="#{$data_menutree[0][:menu_parent]['menu_name']}"
+    .page-title
+      .container
+        -if @search
+          %h3="You are looking for \" #{@search} \" in #{$data_menutree[0][:menu_parent]['menu_name']}"
+        -else
+          %h3="#{$data_menutree[0][:menu_parent]['menu_name']}"
+    #main-wrapper.container
+      .row
+        .col-lg-3.col-md-6
+          .panel.info-box.panel-white
+            .panel-body
+              .info-box-stats
+                %p.counter 107,200
+                %span.info-box-title User activity this month
+              .info-box-icon
+                %i.icon-users
+              .info-box-progress
+                .progress.progress-xs.progress-squared.bs-n
+                  .progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", :role => "progressbar", :style => "width: 40%"}
+        .col-lg-3.col-md-6
+          .panel.info-box.panel-white
+            .panel-body
+              .info-box-stats
+                %p.counter 340,230
+                %span.info-box-title Page views
+              .info-box-icon
+                %i.icon-eye
+              .info-box-progress
+                .progress.progress-xs.progress-squared.bs-n
+                  .progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "80", :role => "progressbar", :style => "width: 80%"}
+        .col-lg-3.col-md-6
+          .panel.info-box.panel-white
+            .panel-body
+              .info-box-stats
+                %p
+                  $
+                  %span.counter 653,000
+                %span.info-box-title Monthly revenue goal
+              .info-box-icon
+                %i.icon-basket
+              .info-box-progress
+                .progress.progress-xs.progress-squared.bs-n
+                  .progress-bar.progress-bar-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%"}
+        .col-lg-3.col-md-6
+          .panel.info-box.panel-white
+            .panel-body
+              .info-box-stats
+                %p.counter 47,500
+                %span.info-box-title New emails recieved
+              .info-box-icon
+                %i.icon-envelope
+              .info-box-progress
+                .progress.progress-xs.progress-squared.bs-n
+                  .progress-bar.progress-bar-danger{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "50", :role => "progressbar", :style => "width: 50%"}
+      / Row
+      .row
+        .col-lg-9.col-md-12
+          .panel.panel-white
+            .row
+              .col-sm-8
+                .visitors-chart
+                  .panel-heading
+                    %h4.panel-title Visitors
+                  .panel-body
+                    #flotchart1
+              .col-sm-4
+                .stats-info
+                  .panel-heading
+                    %h4.panel-title Browser Stats
+                  .panel-body
+                    %ul.list-unstyled
+                      %li
+                        Google Chrome
+                        .text-success.pull-right
+                          32%
+                          %i.fa.fa-level-up
+                      %li
+                        Firefox
+                        .text-success.pull-right
+                          25%
+                          %i.fa.fa-level-up
+                      %li
+                        Internet Explorer
+                        .text-success.pull-right
+                          16%
+                          %i.fa.fa-level-up
+                      %li
+                        Safari
+                        .text-danger.pull-right
+                          13%
+                          %i.fa.fa-level-down
+                      %li
+                        Opera
+                        .text-danger.pull-right
+                          7%
+                          %i.fa.fa-level-down
+                      %li
+                        Mobile &amp; tablet
+                        .text-success.pull-right
+                          4%
+                          %i.fa.fa-level-up
+                      %li
+                        Others
+                        .text-success.pull-right
+                          3%
+                          %i.fa.fa-level-up
+        .col-lg-3.col-md-6
+          .panel.panel-white{:style => "height: 100%;"}
+            .panel-heading
+              %h4.panel-title Server Load
+              .panel-control
+                %a.panel-collapse{"data-placement" => "top", "data-toggle" => "tooltip", :href => "javascript:void(0);", :title => "Expand/Collapse"}
+                  %i.icon-arrow-down
+                %a.panel-reload{"data-placement" => "top", "data-toggle" => "tooltip", :href => "javascript:void(0);", :title => "Reload"}
+                  %i.icon-reload
+            .panel-body
+              .server-load
+                .server-stat
+                  %span Total Usage
+                  %p 67GB
+                .server-stat
+                  %span Total Space
+                  %p 320GB
+                .server-stat
+                  %span CPU
+                  %p 57%
+              #flotchart2
+        .col-lg-5.col-md-6
+          .panel.panel-white
+            .panel-heading
+              %h4.panel-title Weather
+              .panel-control
+                %a.panel-reload{"data-placement" => "top", "data-toggle" => "tooltip", :href => "javascript:void(0);", :title => "Reload"}
+                  %i.icon-reload
+            .panel-body
+              .weather-widget
+                .row
+                  .col-md-12
+                    .weather-top
+                      .weather-current.pull-left
+                        %i.wi.wi-day-cloudy.weather-icon
+                        %p
+                          %span
+                            83
+                            %sup °F
+                      %h2.weather-day.pull-right
+                        Miami, FL
+                        %br/
+                        %small
+                          %b 13th April, 2015
+                  .col-md-6
+                    %ul.list-unstyled.weather-info
+                      %li
+                        Wind
+                        %span.pull-right
+                          %b ESE 16 mph
+                      %li
+                        Humidity
+                        %span.pull-right
+                          %b 64%
+                      %li
+                        Pressure
+                        %span.pull-right
+                          %b 30.15 in
+                      %li
+                        UV Index
+                        %span.pull-right
+                          %b 6
+                  .col-md-6
+                    %ul.list-unstyled.weather-info
+                      %li
+                        Cloud Cover
+                        %span.pull-right
+                          %b 60%
+                      %li
+                        Ceiling
+                        %span.pull-right
+                          %b 17800 ft
+                      %li
+                        Dew Point
+                        %span.pull-right
+                          %b 70° F
+                      %li
+                        Visibility
+                        %span.pull-right
+                          %b 10 mi
+                  .col-md-12
+                    %ul.list-unstyled.weather-days.row
+                      %li.col-xs-4.col-sm-2
+                        %span 12:00
+                        %i.wi.wi-day-cloudy
+                        %span
+                          82
+                          %sup °F
+                      %li.col-xs-4.col-sm-2
+                        %span 13:00
+                        %i.wi.wi-day-cloudy
+                        %span
+                          82
+                          %sup °F
+                      %li.col-xs-4.col-sm-2
+                        %span 14:00
+                        %i.wi.wi-day-cloudy
+                        %span
+                          82
+                          %sup °F
+                      %li.col-xs-4.col-sm-2
+                        %span 15:00
+                        %i.wi.wi-day-cloudy
+                        %span
+                          83
+                          %sup °F
+                      %li.col-xs-4.col-sm-2
+                        %span 16:00
+                        %i.wi.wi-day-cloudy
+                        %span
+                          82
+                          %sup °F
+                      %li.col-xs-4.col-sm-2
+                        %span 17:00
+                        %i.wi.wi-day-sunny-overcast
+                        %span
+                          82
+                          %sup °F
+        .col-lg-4.col-md-6
+          .panel.panel-white
+            .panel-heading
+              %h4.panel-title Inbox
+              .panel-control
+                %a.panel-reload{"data-placement" => "top", "data-toggle" => "tooltip", :href => "javascript:void(0);", :title => "Reload"}
+                  %i.icon-reload
+            .panel-body
+              .inbox-widget.slimscroll
+                %a{:href => "#"}
+                  .inbox-item
+                    .inbox-item-img
+                      %img.img-circle{:alt => "", :src => "/templates/images/avatar2.png"}/
+                    %p.inbox-item-author Sandra Smith
+                    %p.inbox-item-text Hey! I'm working on your...
+                    %p.inbox-item-date 13:40 PM
+                %a{:href => "#"}
+                  .inbox-item
+                    .inbox-item-img
+                      %img.img-circle{:alt => "", :src => "/templates/images/avatar3.png"}/
+                    %p.inbox-item-author Christopher
+                    %p.inbox-item-text I've finished it! See you so...
+                    %p.inbox-item-date 13:34 PM
+                %a{:href => "#"}
+                  .inbox-item
+                    .inbox-item-img
+                      %img.img-circle{:alt => "", :src => "/templates/images/avatar4.png"}/
+                    %p.inbox-item-author Amily Lee
+                    %p.inbox-item-text This theme is awesome!
+                    %p.inbox-item-date 13:17 PM
+                %a{:href => "#"}
+                  .inbox-item
+                    .inbox-item-img
+                      %img.img-circle{:alt => "", :src => "/templates/images/avatar5.png"}/
+                    %p.inbox-item-author Nick Doe
+                    %p.inbox-item-text Nice to meet you
+                    %p.inbox-item-date 12:20 PM
+                %a{:href => "#"}
+                  .inbox-item
+                    .inbox-item-img
+                      %img.img-circle{:alt => "", :src => "/templates/images/avatar2.png"}/
+                    %p.inbox-item-author Sandra Smith
+                    %p.inbox-item-text Hey! I'm working on your...
+                    %p.inbox-item-date 10:15 AM
+                %a{:href => "#"}
+                  .inbox-item
+                    .inbox-item-img
+                      %img.img-circle{:alt => "", :src => "/templates/images/avatar4.png"}/
+                    %p.inbox-item-author Amily Lee
+                    %p.inbox-item-text This theme is awesome!
+                    %p.inbox-item-date 9:56 AM
+        .col-lg-3.col-md-6
+          .panel.twitter-box
+            .panel-body
+              .live-tile{"data-delay" => "3000", "data-mode" => "flip", "data-speed" => "750"}
+                %span.tile-title.pull-right New Tweets
+                %i.fa.fa-twitter
+                %div
+                  %h2.no-m It’s kind of fun to do the impossible...
+                  %span.tile-date 10 April, 2015
+                %div
+                  %h2.no-m Sometimes by losing a battle you find a new way to win the war...
+                  %span.tile-date 6 April, 2015
+          .panel.facebook-box
+            .panel-body
+              .live-tile{"data-delay" => "4500", "data-direction" => "horizontal", "data-mode" => "carousel", "data-speed" => "750"}
+                %span.tile-title.pull-right Facebook Feed
+                %i.fa.fa-facebook
+                %div
+                  %h2.no-m If you're going through hell, keep going...
+                  %span.tile-date 23 March, 2015
+                %div
+                  %h2.no-m To improve is to change; to be perfect is to change often...
+                  %span.tile-date 15 March, 2015
+        .col-lg-12.col-md-12
+          .panel.panel-white
+            .panel-heading
+              %h4.panel-title Project Stats
+            .panel-body
+              .table-responsive.project-stats
+                %table.table
+                  %thead
+                    %tr
+                      %th #
+                      %th Project
+                      %th Status
+                      %th Manager
+                      %th Progress
+                  %tbody
+                    %tr
+                      %th{:scope => "row"} 452
+                      %td Mailbox Template
+                      %td
+                        %span.label.label-info Pending
+                      %td David Green
+                      %td
+                        .progress.progress-sm
+                          .progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "40", :role => "progressbar", :style => "width: 40%"}
+                    %tr
+                      %th{:scope => "row"} 327
+                      %td Wordpress Theme
+                      %td
+                        %span.label.label-primary In Progress
+                      %td Sandra Smith
+                      %td
+                        .progress.progress-sm
+                          .progress-bar.progress-bar-primary{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%"}
+                    %tr
+                      %th{:scope => "row"} 226
+                      %td Modern Admin Template
+                      %td
+                        %span.label.label-success Finished
+                      %td Chritopher Palmer
+                      %td
+                        .progress.progress-sm
+                          .progress-bar.progress-bar-success{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "100", :role => "progressbar", :style => "width: 100%"}
+                    %tr
+                      %th{:scope => "row"} 178
+                      %td eCommerce template
+                      %td
+                        %span.label.label-danger Canceled
+                      %td Amily Lee
+                      %td
+                        .progress.progress-sm
+                          .progress-bar.progress-bar-danger{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "20", :role => "progressbar", :style => "width: 20%"}
+                    %tr
+                      %th{:scope => "row"} 157
+                      %td Website PSD
+                      %td
+                        %span.label.label-info Testing
+                      %td Nick Doe
+                      %td
+                        .progress.progress-sm
+                          .progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "50", :role => "progressbar", :style => "width: 50%"}
+                    %tr
+                      %th{:scope => "row"} 157
+                      %td Fronted Theme
+                      %td
+                        %span.label.label-warning Waiting
+                      %td David Green
+                      %td
+                        .progress.progress-sm
+                          .progress-bar.progress-bar-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "70", :role => "progressbar", :style => "width: 70%"}
+
+    = render 'layouts/partial/_footer'

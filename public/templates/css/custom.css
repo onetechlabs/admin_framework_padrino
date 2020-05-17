@@ -1,0 +1,29 @@
+/* Write your custom CSS here */
+.pagination{
+  margin:0 !important;
+}
+.table-responsive {
+  margin-bottom: 0!important;
+  border: none !important;
+  overflow-y: auto!important;
+}
+#main-wrapper {
+  margin-bottom: 90px!important;
+}
+.popover.right {
+  margin-left: 173px !important;
+  width: 170px;
+}
+.list-row-action .popover {
+    position: relative;
+    margin-top: 10px;
+}
+.list-row-action .popover .arrow {
+    display: none;
+}
+/* Avatar CSS */
+.profile_pic {
+  width:100%;
+  min-width: 100px;
+  max-width: 300px;
+}

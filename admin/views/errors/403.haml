@@ -1,0 +1,9 @@
+.page-inner
+  #main-wrapper
+    .row
+      .col-md-4.center
+        %h1.text-xxl.text-primary.text-center
+          %p=tag_icon 'minus-circle fa-5x'
+        .details
+          %h1{:style => "font-size: 50px;"}=@title_error
+          %p=@title_error_description

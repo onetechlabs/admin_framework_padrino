@@ -1,0 +1,104 @@
+%form.search-form{:action => "", :method => "GET"}
+  .input-group
+    %input.form-control.search-input{:name => "search", :placeholder => "what are you looking for ?", :type => "text"}
+    %span.input-group-btn
+      %button.btn.btn-default.close-search.waves-effect.waves-button.waves-classic{:type => "button"}
+        %i.fa.fa-times
+.navbar
+  .navbar-inner.container
+    .sidebar-pusher
+      %a.waves-effect.waves-button.waves-classic.push-sidebar{:href => "javascript:void(0);"}
+        %i.fa.fa-bars
+    .logo-box
+      %a.logo-text{:href => "/admin"}
+        %span=$application_name
+    .search-button
+      %a.waves-effect.waves-button.waves-classic.show-search{:href => "javascript:void(0);"}
+        %i.fa.fa-search
+    .topmenu-outer
+      .top-menu
+        %ul.nav.navbar-nav.navbar-left
+          %li
+            %a.waves-effect.waves-button.waves-classic.sidebar-toggle{:href => "javascript:void(0);"}
+              %i.fa.fa-bars
+          %li
+            %a.waves-effect.waves-button.waves-classic.toggle-fullscreen{:href => "javascript:void(0);"}
+              %i.fa.fa-expand
+          %li.dropdown
+            %a.dropdown-toggle.waves-effect.waves-button.waves-classic{"data-toggle" => "dropdown", :href => "#"}
+              %i.fa.fa-cogs
+            %ul.dropdown-menu.dropdown-md.dropdown-list.theme-settings{:role => "menu"}
+              %li.li-group
+                %ul.list-unstyled
+                  %li.no-link{:role => "presentation"}
+                    Fixed Header
+                    .ios-switch.pull-right.switch-md
+                      %input.js-switch.pull-right.fixed-header-check{:checked => "checked", :type => "checkbox"}/
+              %li.li-group
+                %ul.list-unstyled
+                  %li.no-link{:role => "presentation"}
+                    Fixed Sidebar
+                    .ios-switch.pull-right.switch-md
+                      %input.js-switch.pull-right.fixed-sidebar-check{:type => "checkbox"}/
+                  %li.no-link{:role => "presentation"}
+                    Toggle Sidebar
+                    .ios-switch.pull-right.switch-md
+                      %input.js-switch.pull-right.toggle-sidebar-check{:type => "checkbox"}/
+                  %li.no-link{:role => "presentation"}
+                    Compact Menu
+                    .ios-switch.pull-right.switch-md
+                      %input.js-switch.pull-right.compact-menu-check{:checked => "checked", :type => "checkbox"}/
+              %li.no-link
+                %button.btn.btn-default.reset-options Reset Options
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            %a.waves-effect.waves-button.waves-classic.show-search{:href => "javascript:void(0);"}
+              %i.fa.fa-search
+          %li.dropdown
+            %a.dropdown-toggle.waves-effect.waves-button.waves-classic{"data-toggle" => "dropdown", :href => "#"}
+              %span.user-name
+                =current_account.name+" "+current_account.surname
+                %i.fa.fa-angle-down
+              %img{:src=>"#{current_account.avatar !="No Image" ? current_account.avatar : '/images/no-image.png'}", :class=>"img-circle avatar", :width=>"40"}
+            %ul.dropdown-menu.dropdown-list{:role => "menu"}
+              %li{:role => "presentation"}
+                %a{:href => "/admin/accounts/edit/#{current_account.id}"}
+                  %i.icon-user>
+                  My Profile
+              %li.divider{:role => "presentation"}
+              %li{:role => "presentation"}
+                %a{:href => "/"}
+                  %i.icon-globe>
+                  Back Website
+              %li{:role => "presentation"}
+                %a{:href => "/admin"}
+                  %i.fa.fa-home>
+                  Dashboard
+              %li.divider{:role => "presentation"}
+              %li{:role => "presentation"}
+                %a{:href => "#"}
+                  = button_to :logout, url(:sessions, :destroy), :method => :delete, :submit_options => { :type => :submit, :title => pat(:logout), :style => 'background: transparent;border: none;text-align: left;padding: 0;' } do
+                    %i.fa.fa-sign-out.m-r-xs>
+                    Sign Out
+
+.page-sidebar.sidebar.horizontal-bar
+  .page-sidebar-inner
+    %ul.menu.accordion-menu
+      %li.nav-heading
+        %span Navigation
+      - $data_menutree.each do |menu|
+        - if menu[:menu_parent]['menu_child'].count == 0
+          %li
+            %a{:href => "#{menu[:menu_parent]['url']}"}
+              %span{:class=>"#{menu[:menu_parent]['icon']}"}
+              %p="#{menu[:menu_parent]['menu_name']}"
+        - else
+          %li.droplink
+            %a{:href => "#{menu[:menu_parent]['url']}"}
+              %span{:class=>"#{menu[:menu_parent]['icon']}"}
+              %p="#{menu[:menu_parent]['menu_name']}"
+              %span.arrow
+            %ul.sub-menu
+              - menu[:menu_parent]["menu_child"].each do |mchild|
+                %li
+                  %a{:href => "#{mchild['url']}"}=mchild['menu_name']

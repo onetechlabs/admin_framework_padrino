@@ -1,0 +1,61 @@
+%html{:lang => 'en'}
+  %head
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    %meta{:content => 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type'}
+    %meta{:name => :viewport, :content => 'width=device-width,initial-scale=1'}
+    %title= @title
+    =favicon_tag 'favicon.ico'
+    %link{:href => "http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/pace-master/themes/blue/pace-theme-flash.css", :rel => "stylesheet"}/
+    %link{:href => "/templates/plugins/uniform/css/uniform.default.min.css", :rel => "stylesheet"}/
+    %link{:href => "/templates/plugins/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/fontawesome/css/font-awesome.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/line-icons/simple-line-icons.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/waves/waves.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/switchery/switchery.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/3d-bold-navigation/css/style.css", :rel => "stylesheet", :type => "text/css"}/
+    / Theme Styles
+    %link{:href => "/templates/css/modern.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/css/custom.css", :rel => "stylesheet", :type => "text/css"}/
+    %script{:src => "/templates/plugins/3d-bold-navigation/js/modernizr.js"}
+  %body.page-login.login-alt
+  = form_tag url(:sessions, :create), :class=>'login form-horizontal', :style => 'margin: 0;' do
+    %main.page-content
+      .page-inner
+        #main-wrapper
+          .row
+            .col-md-6.center
+              .login-box.panel.panel-white
+                = {:error => 'danger', :warning => 'warning', :success => 'success', :notice => 'info'}.map { |type, class_name| flash_tag(type, :style => 'margin: 0;', :class => "alert alert-#{class_name} fade in", :bootstrap => true) }.join.html_safe
+                %br
+                %center.login-logo=image_tag('logo.png', :width => 100)
+                .panel-body
+                  .row
+                    .col-md-6
+                      %a.logo-name.text-lg{:href => "/admin"}=@title_login
+                      %p.m-t-md=@title_login_description
+
+                    .col-md-6
+                      .form-group{:style => "margin-right: 0;margin-left: 0;"}=email_field_tag :email, :id => :email, :placeholder=>"Email", :value => params[:email], :autofocus => true, :class =>'form-control'
+                      .form-group{:style => "margin-right: 0;margin-left: 0;"}=password_field_tag :password, :id => :password, :placeholder=>"Password", :class =>'form-control'
+                      %fieldset.login-control-group-last.control-group{:style => "margin-bottom: 10px;"}
+                        .login-controls.controls
+                          %label.login-bypass-label.checkbox
+                            = check_box_tag :bypass
+                            = pat('login.bypass')
+                      %button.btn.btn-success.btn-block{:type => "submit"} Sign In
+
+  %script{:src => "/templates/plugins/jquery/jquery-2.1.4.min.js"}
+  %script{:src => "/templates/plugins/jquery-ui/jquery-ui.min.js"}
+  %script{:src => "/templates/plugins/pace-master/pace.min.js"}
+  %script{:src => "/templates/plugins/jquery-blockui/jquery.blockui.js"}
+  %script{:src => "/templates/plugins/bootstrap/js/bootstrap.min.js"}
+  %script{:src => "/templates/plugins/jquery-slimscroll/jquery.slimscroll.min.js"}
+  %script{:src => "/templates/plugins/switchery/switchery.min.js"}
+  %script{:src => "/templates/plugins/uniform/jquery.uniform.min.js"}
+  %script{:src => "/templates/plugins/classie/classie.js"}
+  %script{:src => "/templates/plugins/waves/waves.min.js"}
+  %script{:src => "/templates/js/modern.min.js"}

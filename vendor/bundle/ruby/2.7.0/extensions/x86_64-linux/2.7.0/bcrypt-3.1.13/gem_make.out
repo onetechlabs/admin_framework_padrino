@@ -1,0 +1,19 @@
+current directory: /home/onetechlabs/MyProjectsOnLinux/Ruby/bossgame_game25/vendor/bundle/ruby/2.7.0/gems/bcrypt-3.1.13/ext/mri
+/home/onetechlabs/.rbenv/versions/2.7.1/bin/ruby -I /home/onetechlabs/.rbenv/versions/2.7.1/lib/ruby/2.7.0 -r ./siteconf20200507-8869-pjomf8.rb extconf.rb
+creating Makefile
+
+current directory: /home/onetechlabs/MyProjectsOnLinux/Ruby/bossgame_game25/vendor/bundle/ruby/2.7.0/gems/bcrypt-3.1.13/ext/mri
+make "DESTDIR=" clean
+
+current directory: /home/onetechlabs/MyProjectsOnLinux/Ruby/bossgame_game25/vendor/bundle/ruby/2.7.0/gems/bcrypt-3.1.13/ext/mri
+make "DESTDIR="
+compiling bcrypt_ext.c
+compiling crypt_blowfish.c
+gcc  -D__SKIP_GNU -I/home/onetechlabs/.rbenv/versions/2.7.1/include     -c -o x86.o x86.S
+compiling crypt_gensalt.c
+compiling wrapper.c
+linking shared-object bcrypt_ext.so
+
+current directory: /home/onetechlabs/MyProjectsOnLinux/Ruby/bossgame_game25/vendor/bundle/ruby/2.7.0/gems/bcrypt-3.1.13/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.so ./.gem.20200507-8869-12uaexb

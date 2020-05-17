@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    %meta{:content => 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type'}
+    %meta{:name => :viewport, :content => 'width=device-width,initial-scale=1'}
+    %title= "#{$application_name} | Back Office"
+    =favicon_tag 'favicon.ico'
+    / Styles
+    %link{:href => "http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/pace-master/themes/blue/pace-theme-flash.css", :rel => "stylesheet"}/
+    %link{:href => "/templates/plugins/uniform/css/uniform.default.min.css", :rel => "stylesheet"}/
+    %link{:href => "/templates/plugins/bootstrap/css/bootstrap.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/fontawesome/css/font-awesome.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/line-icons/simple-line-icons.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/waves/waves.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/switchery/switchery.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/3d-bold-navigation/css/style.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/slidepushmenus/css/component.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/weather-icons-master/css/weather-icons.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/metrojs/MetroJs.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/plugins/toastr/toastr.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "http://jcrop-cdn.tapmodo.com/v0.9.12/css/jquery.Jcrop.min.css", :rel => "stylesheet", :type => "text/css"}/
+    / Theme Styles
+    %link{:href => "/templates/css/modern.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "/templates/css/custom.css", :rel => "stylesheet", :type => "text/css"}
+  %body.page-header-fixed.compact-menu.page-horizontal-bar
+    =yield
