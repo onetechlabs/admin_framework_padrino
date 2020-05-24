@@ -7,7 +7,7 @@
 
     %span.help-inline=error ? f.error_message_on(:<%= column[:name] %>, :class => 'text-error') : pat(:example)
 <%- end -%>
-
+%br
 .form-actions
   =f.submit pat(:save), :class => 'btn btn-primary'
   &nbsp;

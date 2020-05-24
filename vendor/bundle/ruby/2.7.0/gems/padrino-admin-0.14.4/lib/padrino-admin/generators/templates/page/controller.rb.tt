@@ -1,17 +1,29 @@
 <%= @app_name %>::<%= @admin_name %>.controllers :<%= @orm.name_plural %> do
   get :index do
     @title = "<%= @orm.name_plural.capitalize %>"
-    @<%= @orm.name_plural %> = <%= @orm.all %>
+    @total_rows_to_show=5
+    @search = params[:search]
+    if @search then
+      @search_data=<%= @orm.name_singular.capitalize %>.where(Sequel.like(:<%= @orm.columns[1].name %>, '%'+@search+'%'))
+      @total_page=@search_data.count / @total_rows_to_show;
+      @<%= @orm.name_plural %> = @search_data.page(params[:page], @total_rows_to_show).order(Sequel.desc(:id))
+    else
+      @search_data=<%= @orm.name_singular.capitalize %>
+      @total_page=@search_data.count / @total_rows_to_show;
+      @<%= @orm.name_plural %> = @search_data.page(params[:page], @total_rows_to_show).order(Sequel.desc(:id))
+    end
     render '<%= @orm.name_plural %>/index'
   end
 
   get :new do
+    halt 403 unless current_account.role == "admin"
     @title = pat(:new_title, :model => '<%= @orm.name_singular %>')
     @<%= @orm.name_singular %> = <%= @orm.build %>
     render '<%= @orm.name_plural %>/new'
   end
 
   post :create do
+    halt 403 unless current_account.role == "admin"
     @<%= @orm.name_singular %> = <%= @orm.build("params[:#{@orm.name_param}]") %>
     if <%= @orm.save %>
       @title = pat(:create_title, :model => "<%= @orm.name_singular %> #{@<%= @orm.name_singular %>.id}")
@@ -25,6 +37,7 @@
   end
 
   get :edit, :with => :id do
+    halt 403 unless current_account.role == "admin"
     @title = pat(:edit_title, :model => "<%= @orm.name_singular %> #{params[:id]}")
     @<%= @orm.name_singular %> = <%= @orm.find("params[:id]") %>
     if @<%= @orm.name_singular %>
@@ -36,6 +49,7 @@
   end
 
   put :update, :with => :id do
+    halt 403 unless current_account.role == "admin"
     @title = pat(:update_title, :model => "<%= @orm.name_singular %> #{params[:id]}")
     @<%= @orm.name_singular %> = <%= @orm.find("params[:id]") %>
     if @<%= @orm.name_singular %>
@@ -55,6 +69,7 @@
   end
 
   delete :destroy, :with => :id do
+    halt 403 unless current_account.role == "admin"
     @title = "<%= @orm.name_plural.capitalize %>"
     <%= @orm.name_singular %> = <%= @orm.find("params[:id]") %>
     if <%= @orm.name_singular %>
@@ -71,6 +86,7 @@
   end
 
   delete :destroy_many do
+    halt 403 unless current_account.role == "admin"
     @title = "<%= @orm.name_plural.capitalize %>"
     unless params[:<%= @orm.name_singular %>_ids]
       flash[:error] = pat(:destroy_many_error, :model => '<%= @orm.name_singular %>')
