@@ -5,11 +5,13 @@
     @search = params[:search]
     if @search then
       @search_data=<%= @orm.name_singular.capitalize %>.where(Sequel.like(:<%= @orm.columns[1].name %>, '%'+@search+'%'))
-      @total_page=(@search_data.count / @total_rows_to_show).ceil;
+      @total_page=(@search_data.count.to_f / @total_rows_to_show).ceil;
+      @total_page = 1 unless @total_page != 0
       @<%= @orm.name_plural %> = @search_data.page(params[:page], @total_rows_to_show).order(Sequel.desc(:id))
     else
       @search_data=<%= @orm.name_singular.capitalize %>
-      @total_page=(@search_data.count / @total_rows_to_show).ceil;
+      @total_page=(@search_data.count.to_f / @total_rows_to_show).ceil;
+      @total_page = 1 unless @total_page != 0
       @<%= @orm.name_plural %> = @search_data.page(params[:page], @total_rows_to_show).order(Sequel.desc(:id))
     end
     render '<%= @orm.name_plural %>/index'
