@@ -129,14 +129,9 @@
                               = form_tag url(:<%= @orm.name_plural %>, :destroy, :id => <%= @orm.name_singular %>.id), :method => :delete do
                                 =submit_tag pat(:delete), :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
                                 .btn.btn-default.btn-small.cancel=pat(:cancel)
-        -if @search && @total_page >= 1
-          %center{:style=>"margin:10px;"}
-            = will_paginate @<%= @orm.name_plural %>
-        -elsif @search && @total_page ==0
-          %center
-        -elsif @search==nil && @total_page >= 1
-          %center{:style=>"margin:10px;"}
-            = will_paginate @<%= @orm.name_plural %>
-        -elsif @search==nil && @total_page ==0
-          %center
+        %center{:style=>"margin:10px;"}
+          %span{:style=>"font-size:10px;"}
+            = "Total Pages : #{@total_page} Page"
+          %br
+          = will_paginate @posts
     = render 'layouts/partial/_footer'
