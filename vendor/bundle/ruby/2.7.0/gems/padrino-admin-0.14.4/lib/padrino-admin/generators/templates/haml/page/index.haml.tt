@@ -133,5 +133,5 @@
           %span{:style=>"font-size:10px;"}
             = "Total Pages : #{@total_page} Page"
           %br
-          = will_paginate @posts
+          = will_paginate @<%= @orm.name_plural %>
     = render 'layouts/partial/_footer'

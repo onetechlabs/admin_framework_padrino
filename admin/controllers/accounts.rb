@@ -11,14 +11,16 @@ AdminFramework::Admin.controllers :accounts do
       if current_account.role != "admin"
         @search_data=@search_data.exclude(role: "admin")
       end
-      @total_page=@search_data.count / @total_rows_to_show;
+      @total_page=(@search_data.count.to_f / @total_rows_to_show).ceil;
+      @total_page = 1 unless @total_page != 0
       @accounts = @search_data.page(params[:page], @total_rows_to_show).order(Sequel.desc(:id)).order_append(Sequel.desc(:role))
     else
       @search_data=Account
       if current_account.role != "admin"
         @search_data=@search_data.exclude(role: "admin")
       end
-      @total_page=@search_data.count / @total_rows_to_show;
+      @total_page=(@search_data.count.to_f / @total_rows_to_show).ceil;
+      @total_page = 1 unless @total_page != 0
       @accounts = @search_data.page(params[:page], @total_rows_to_show).order(Sequel.desc(:id)).order_append(Sequel.desc(:role))
     end
     render 'accounts/index'
