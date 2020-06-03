@@ -1,7 +1,7 @@
 - error = @account.errors.key?(:avatar) && @account.errors[:avatar].count > 0
 %center
   %h2="Profile Pic"
-  %img.section_oldAvatar{:src => "#{@account.avatar !="No Image" ? @account.avatar : '/images/no-image.png'}", :class=>"profile_pic"}/
+  %img.section_oldAvatar{:src => "#{@account.avatar.present? ? '/uploads/avatars/'+@account.avatar : '/images/no-image.png'}", :class=>"profile_pic"}/
   #views.section_newAvatar
   %hr.section_oldAvatar
   %input#avatar_upload_file.section_oldAvatar{:type => "file"}/
@@ -12,7 +12,7 @@
   %button#hflipbutton.section_newAvatar{:type => "button"} H-flip
   %button#vflipbutton.section_newAvatar{:type => "button"} V-flip
   %br.section_newAvatar/
-  =f.hidden_field :avatar, :class => 'form-control input-large'
+  =f.text_field :avatar, :class => 'form-control input-large'
   %br
   %span.help-inline=error ? f.error_message_on(:avatar, :class => 'text-error') : ''
   %br

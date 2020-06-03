@@ -75,6 +75,7 @@
                                 =submit_tag pat(:delete), :class =>'list-menu-popover-delete-selected-btn btn btn-danger btn-small'
                                 .btn.btn-default.btn-small.cancel=pat(:cancel)
                 %th.header= mat(:account, :email)
+                %th.header= mat(:account, :avatar)
                 %th.header.list-row-action-header
 
             %tbody
@@ -89,6 +90,8 @@
                       %td.list-column.list-selectable
                         =check_box_tag 'account_ids[]', :value => account.id, :class => 'list-selectable-checkbox'
                     %td.list-column=account.email
+                    %td
+                      %img{:src=>"#{account.avatar !="No Image" ? '/uploads/avatars/'+account.avatar : '/images/no-image.png'}", :width=>"50"}
                     %td.list-column.list-row-action
                       .list-row-action-wrapper
                         =link_to tag_icon('info-circle'), :href => 'javascripts:void(0)', :class => 'list-row-action-wrapper-link', "data-target" => ".show_detail_#{account.id}", "data-toggle" => "modal"
@@ -102,7 +105,7 @@
                               .modal-body
                                 .row
                                   .col-md-12
-                                    %img{:src=>"#{account.avatar !="No Image" ? account.avatar : '/images/no-image.png'}", :width=>"100%"}
+                                    %img{:src=>"#{account.avatar !="No Image" ? '/uploads/avatars/'+account.avatar : '/images/no-image.png'}", :width=>"100%"}
                                 %hr
                                 .row
                                   .col-md-4

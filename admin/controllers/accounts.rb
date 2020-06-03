@@ -35,6 +35,17 @@ AdminFramework::Admin.controllers :accounts do
 
   post :create do
     halt 403 unless current_account.role == "admin"
+    if File.extname(params[:account]['avatar'])==".jpg" || File.extname(params[:account]['avatar'])==".jpeg" || File.extname(params[:account]['avatar'])==".png" then
+    else
+      if params[:account]['avatar'].empty? then
+      else
+        avatar_binary = params[:account]['avatar'].split(";base64,")
+        params[:account]['avatar'] = Time.now.strftime("%d%m%Y%H%M")+rand(10..10000).to_s+"-avatar"+".png"
+        File.open(Padrino.root("public/uploads/avatars/",params[:account]['avatar']), "wb") do |file|
+          file.write(Base64.decode64(avatar_binary[1]))
+        end
+      end
+    end
     @account = Account.new(params[:account])
     if (@account.save rescue false)
       @title = pat(:create_title, :model => "account #{@account.id}")
@@ -69,6 +80,17 @@ AdminFramework::Admin.controllers :accounts do
 
   put :update, :with => :id do
     @title = pat(:update_title, :model => "account #{params[:id]}")
+    if File.extname(params[:account]['avatar'])==".jpg" || File.extname(params[:account]['avatar'])==".jpeg" || File.extname(params[:account]['avatar'])==".png" then
+    else
+      if params[:account]['avatar'].empty? then
+      else
+        avatar_binary = params[:account]['avatar'].split(";base64,")
+        params[:account]['avatar'] = Time.now.strftime("%d%m%Y%H%M")+rand(10..10000).to_s+"-avatar"+".png"
+        File.open(Padrino.root("public/uploads/avatars/",params[:account]['avatar']), "wb") do |file|
+          file.write(Base64.decode64(avatar_binary[1]))
+        end
+      end
+    end
     @account = Account[params[:id]]
     if @account
       if @account.modified! && @account.update(params[:account])
