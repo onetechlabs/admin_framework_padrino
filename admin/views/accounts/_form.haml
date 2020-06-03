@@ -12,7 +12,7 @@
   %button#hflipbutton.section_newAvatar{:type => "button"} H-flip
   %button#vflipbutton.section_newAvatar{:type => "button"} V-flip
   %br.section_newAvatar/
-  =f.text_field :avatar, :class => 'form-control input-large'
+  =f.hidden_field :avatar, :class => 'form-control input-large'
   %br
   %span.help-inline=error ? f.error_message_on(:avatar, :class => 'text-error') : ''
   %br
