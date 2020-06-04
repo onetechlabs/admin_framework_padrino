@@ -20,7 +20,7 @@ $(function(){
               hideMethod: 'fadeOut',
               timeOut: 5000
           };
-          toastr.error('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
+          toastr.error('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG.');
       }, 1800);
       a=0;
     }else{
