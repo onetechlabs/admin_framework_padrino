@@ -11,7 +11,7 @@ $(function(){
   $("#avatar_upload_file").change(function() {
     $('input:submit').attr('disabled',true);
     var ext = $(this).val().split('.').pop().toLowerCase();
-    if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+    if ($.inArray(ext, ['png','jpg','jpeg']) == -1){
       setTimeout(function() {
           toastr.options = {
               closeButton: true,
