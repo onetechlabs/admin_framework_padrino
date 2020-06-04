@@ -5,11 +5,46 @@ $(function(){
   var canvas;
   var context;
   var image;
-
+  var a=0;
   var prefsize;
   $(".section_newAvatar").hide();
   $("#avatar_upload_file").change(function() {
-    loadImage(this);
+    $('input:submit').attr('disabled',true);
+    var ext = $(this).val().split('.').pop().toLowerCase();
+    if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+      setTimeout(function() {
+          toastr.options = {
+              closeButton: true,
+              progressBar: true,
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut',
+              timeOut: 5000
+          };
+          toastr.error('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
+      }, 1800);
+      a=0;
+    }else{
+      var picsize = (this.files[0].size);
+      if (picsize > 500000){
+        setTimeout(function() {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'fadeIn',
+                hideMethod: 'fadeOut',
+                timeOut: 5000
+            };
+            toastr.error('Maximum File Size Limit is 500 KB.');
+        }, 1800);
+        a=0;
+      }else{
+        a=1;
+      }
+      if (a==1){
+        $('input:submit').attr('disabled',false);
+        loadImage(this);
+      }
+    }
   });
 
   function loadImage(input) {
